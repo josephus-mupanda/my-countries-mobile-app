@@ -24,10 +24,11 @@ class _SplashScreenState extends State<SplashScreen>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
-    )..forward(); // Start the animation on load
+    )..forward();
 
     await Future.delayed(const Duration(seconds: 1));
-    Navigator.pushReplacementNamed(context, AppRoutes.home); // Check preferences and navigate accordingly
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, AppRoutes.home);
   }
 
 
@@ -61,7 +62,7 @@ class MobileSplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(ImagePath.companyLogo), // Replace with your logo
+            Image.asset(ImagePath.companyLogo),
             const SizedBox(height: Constants.kDefaultPadding),
             SizedBox(
               width: 250,
@@ -97,10 +98,14 @@ class TabletSplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              ImagePath.companyLogo,
-              width: 200,
-            ), // Replace with your logo
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                ImagePath.companyLogo,
+                width: 200,
+              ),
+     
+            ), 
             const SizedBox(height: Constants.kDefaultPadding * 1.5),
             SizedBox(
               width: 250,
@@ -136,10 +141,14 @@ class DesktopSplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              ImagePath.companyLogo,
-              width: 300,
-            ), // Replace with your logo
+            CircleAvatar(
+               backgroundColor: Colors.white,
+              child: Image.asset(
+                ImagePath.companyLogo,
+                width: 300,
+              ),
+             
+            ),
             const SizedBox(height: Constants.kDefaultPadding),
             Text(
               "Countries Mobile App",
@@ -148,7 +157,7 @@ class DesktopSplashScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Theme.of(
                   context,
-                ).colorScheme.onSurface, // Use onBackground color
+                ).colorScheme.onSurface, 
               ),
             ),
             const SizedBox(height: Constants.kDefaultPadding / 2),
@@ -158,7 +167,7 @@ class DesktopSplashScreen extends StatelessWidget {
                 fontSize: 16,
                 color: Theme.of(context).colorScheme.onSurface.withValues(
                   alpha: 0.6,
-                ), // Use onBackground with opacity
+                ), 
               ),
             ),
             const SizedBox(height: Constants.kDefaultPadding * 1.5),

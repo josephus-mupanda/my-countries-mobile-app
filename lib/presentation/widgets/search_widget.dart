@@ -42,22 +42,16 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final TextStyle hintStyle = theme.inputDecorationTheme.hintStyle ??
+    final TextStyle hintStyle =
+        theme.inputDecorationTheme.hintStyle ??
         TextStyle(
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6
-
-)
-
-,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           fontWeight: FontWeight.normal,
           fontSize: 12,
         );
-    final TextStyle errorStyle = theme.inputDecorationTheme.errorStyle ??
-        TextStyle(
-          fontSize: 12,
-          height: 1,
-          color: theme.colorScheme.error,
-        );
+    final TextStyle errorStyle =
+        theme.inputDecorationTheme.errorStyle ??
+        TextStyle(fontSize: 12, height: 1, color: theme.colorScheme.error);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,11 +60,7 @@ class SearchWidget extends StatelessWidget {
           topLabel ?? "",
           style: theme.textTheme.bodySmall?.copyWith(
             fontSize: 12,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6
-
-)
-
-,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 4.0),
@@ -84,11 +74,7 @@ class SearchWidget extends StatelessWidget {
             controller: kController,
             style: theme.textTheme.bodySmall?.copyWith(
               fontSize: 12,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6
-
-)
-
-,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             minLines: minLines,
             maxLines: maxLines,
@@ -101,40 +87,26 @@ class SearchWidget extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: prefixIcon != null
                   ? Icon(
-                prefixIcon,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.6
-
-)
-
-,
-              )
+                      prefixIcon,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                    )
                   : null,
               suffixIcon: suffixIcon,
 
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: theme.dividerColor.withValues(alpha: 0.6
-
-)
-
-,
+                  color: theme.dividerColor.withValues(alpha: 0.6),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: theme.colorScheme.primary,
-                ),
+                borderSide: BorderSide(color: theme.colorScheme.primary),
               ),
               errorStyle: errorStyle,
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: theme.colorScheme.error,
-                ),
+                borderSide: BorderSide(color: theme.colorScheme.error),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: theme.colorScheme.error,
-                ),
+                borderSide: BorderSide(color: theme.colorScheme.error),
               ),
               hintText: hintText,
               hintStyle: hintStyle,
