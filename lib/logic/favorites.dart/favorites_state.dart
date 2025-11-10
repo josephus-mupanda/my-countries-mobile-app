@@ -1,30 +1,11 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:countries_app/data/models/favorites_model.dart';
 
-abstract class FavoritesState extends Equatable {
-  const FavoritesState();
+part 'favorites_state.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class FavoritesInitial extends FavoritesState {}
-
-class FavoritesLoading extends FavoritesState {}
-
-class FavoritesLoaded extends FavoritesState {
-  final List<String> favoriteCodes;
-
-  const FavoritesLoaded(this.favoriteCodes);
-
-  @override
-  List<Object?> get props => [favoriteCodes];
-}
-
-class FavoritesError extends FavoritesState {
-  final String message;
-
-  const FavoritesError(this.message);
-
-  @override
-  List<Object?> get props => [message];
+@freezed
+class FavoritesState with _$FavoritesState {
+  const factory FavoritesState.loaded(List<FavoriteCountry> favorites) = _Loaded;
+  const factory FavoritesState.empty() = _Empty;
+  const factory FavoritesState.error(String message) = _Error;
 }

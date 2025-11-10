@@ -19,7 +19,7 @@ void main() async {
   await dotenv.load();
   await Preferences.init();
   await initServiceLocator();
-  await DioClient().initDiskCache();
+  await sl<DioClient>().initDiskCache();
 
   runApp(const MyApp());
 }

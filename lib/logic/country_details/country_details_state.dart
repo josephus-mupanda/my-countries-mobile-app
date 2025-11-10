@@ -1,31 +1,12 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:countries_app/data/models/country_details.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class CountryDetailsState extends Equatable {
-  const CountryDetailsState();
+part 'country_details_state.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
+@freezed
+class CountryDetailsState with _$CountryDetailsState {
+  const factory CountryDetailsState.loading() = _Loading;
+  const factory CountryDetailsState.loaded(CountryDetails country) = _Loaded;
+  const factory CountryDetailsState.error(String message) = _Error;
 }
 
-class CountryDetailsInitial extends CountryDetailsState {}
-
-class CountryDetailsLoading extends CountryDetailsState {}
-
-class CountryDetailsLoaded extends CountryDetailsState {
-  final CountryDetails country;
-
-  const CountryDetailsLoaded(this.country);
-
-  @override
-  List<Object?> get props => [country];
-}
-
-class CountryDetailsError extends CountryDetailsState {
-  final String message;
-
-  const CountryDetailsError(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}

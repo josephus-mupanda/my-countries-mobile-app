@@ -1,28 +1,10 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:countries_app/data/models/favorites_model.dart';
 
-abstract class FavoritesEvent extends Equatable {
-  const FavoritesEvent();
+part 'favorites_event.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class LoadFavorites extends FavoritesEvent {}
-
-class AddFavorite extends FavoritesEvent {
-  final String countryCode;
-
-  const AddFavorite(this.countryCode);
-
-  @override
-  List<Object?> get props => [countryCode];
-}
-
-class RemoveFavorite extends FavoritesEvent {
-  final String countryCode;
-
-  const RemoveFavorite(this.countryCode);
-
-  @override
-  List<Object?> get props => [countryCode];
+@freezed
+class FavoritesEvent with _$FavoritesEvent {
+  const factory FavoritesEvent.loadFavorites() = _LoadFavorites;
+  const factory FavoritesEvent.toggleFavorite(FavoriteCountry country) = _ToggleFavorite;
 }
