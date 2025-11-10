@@ -1,17 +1,9 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class CountryDetailsEvent extends Equatable {
-  const CountryDetailsEvent();
+part 'country_details_event.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class FetchCountryDetails extends CountryDetailsEvent {
-  final String code;
-
-  const FetchCountryDetails(this.code);
-
-  @override
-  List<Object?> get props => [code];
+@freezed
+class CountryDetailsEvent with _$CountryDetailsEvent {
+  const factory CountryDetailsEvent.fetchDetails(String cca2) = _FetchDetails;
 }

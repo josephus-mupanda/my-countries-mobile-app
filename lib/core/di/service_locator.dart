@@ -1,30 +1,40 @@
-// lib/core/di/service_locator.dart
 import 'package:countries_app/core/api/dio_client.dart';
+import 'package:countries_app/data/repositories/country_repository.dart';
+import 'package:countries_app/data/repositories/favorite_repository.dart';
+import 'package:countries_app/logic/countries/countries_bloc.dart';
+import 'package:countries_app/logic/country_details/country_details_bloc.dart';
+import 'package:countries_app/logic/favorites.dart/favorites_bloc.dart';
+import 'package:countries_app/logic/theme/theme_bloc.dart';
 import 'package:get_it/get_it.dart';
-
-// import '../network/dio_client.dart';
-// import '../../data/repositories/country_repository.dart';
-// import '../../logic/bloc/countries/countries_bloc.dart';
-// import '../../logic/bloc/country_details/country_details_bloc.dart';
-// import '../../logic/bloc/favorites/favorites_bloc.dart';
 
 final GetIt sl = GetIt.instance;
 
-/// Call this from main() before runApp():
-///  await initServiceLocator();
-/// Then also call:
-///  await DioClient().initDiskCache();
+
 Future<void> initServiceLocator() async {
-  // Network
+  // ----------------------------
+  // Services
+  // ----------------------------
   sl.registerLazySingleton<DioClient>(() => DioClient());
 
-  // // Repositories
-  // sl.registerLazySingleton<CountryRepository>(() => CountryRepository(sl<DioClient>()));
+  // ----------------------------
+  // Repositories
+  // ----------------------------
+  sl.registerLazySingleton<CountryRepository>(() => CountryRepository(sl<DioClient>()));
+  sl.registerLazySingleton<FavoritesRepository>(() => FavoritesRepository());
 
-  // // BLoCs (register factories so each UI route can get a fresh instance)
-  // sl.registerFactory(() => CountriesBloc(sl<CountryRepository>()));
-  // sl.registerFactory(() => CountryDetailsBloc(sl<CountryRepository>()));
-  // sl.registerFactory(() => FavoritesBloc(sl<CountryRepository>()));
+  // ----------------------------
+  // Blocs / Cubits
+  // ----------------------------
 
-  // // Any additional services (e.g., Preferences) are initialized in main() by the user.
+  // CountriesBloc depends on CountryRepository
+  sl.registerFactory(() => CountriesBloc(sl<CountryRepository>()));
+
+  // CountryDetailsBloc depends on CountryRepository
+  sl.registerFactory(() => CountryDetailsBloc(sl<CountryRepository>()));
+
+  // FavoritesBloc can optionally depend on FavoritesRepository
+  sl.registerFactory(() => FavoritesBloc(sl<FavoritesRepository>()));
+
+  // ThemeBloc does not depend on any repository directly, uses Preferences
+  sl.registerFactory(() => ThemeBloc());
 }

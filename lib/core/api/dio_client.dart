@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../config/app_config.dart';
 import 'api_exceptions.dart';
@@ -11,7 +10,7 @@ class DioClient {
   factory DioClient() => _instance;
 
   late final Dio dio;
-  late final DioCacheInterceptor _cacheInterceptor;
+  final CacheStore _cacheStore = MemCacheStore(maxSize: 10485760); // 10MB cache
 
   DioClient._internal() {
     dio = Dio(BaseOptions(
@@ -25,50 +24,37 @@ class DioClient {
       },
     ));
 
-    // Initialize with memory cache first
-    _cacheInterceptor = DioCacheInterceptor(
+    // Add cache interceptor
+    dio.interceptors.add(DioCacheInterceptor(
       options: CacheOptions(
-        store: MemCacheStore(),
+        store: _cacheStore,
         policy: CachePolicy.request,
         maxStale: AppConfig.cacheDuration,
         priority: CachePriority.normal,
-        hitCacheOnErrorExcept: [401, 403, 404],
       ),
-    );
+    ));
 
-    dio.interceptors.add(_cacheInterceptor);
-
+    // Add error interceptor
     dio.interceptors.add(InterceptorsWrapper(
       onError: (DioException e, handler) {
-        handler.reject(_convertToApiException(e));
+        final apiException = ApiException.fromDioError(e);
+        handler.reject(
+          DioException(
+            requestOptions: e.requestOptions,
+            response: e.response,
+            type: e.type,
+            error: apiException,
+            message: apiException.message,
+          ),
+        );
       },
     ));
   }
 
-  /// Initialize disk-backed cache
+  /// Initialize cache (no-op for MemCacheStore, kept for compatibility)
   Future<void> initDiskCache() async {
-    try {
-      final dir = await getTemporaryDirectory();
-      
-      // For dio_cache_interceptor 4.x, use the correct store
-      final diskStore = FileCacheStore(dir.path);
-
-      final diskOptions = CacheOptions(
-        store: diskStore,
-        policy: CachePolicy.request,
-        maxStale: AppConfig.cacheDuration,
-        priority: CachePriority.high,
-        hitCacheOnErrorExcept: [401, 403, 404],
-      );
-
-      // Remove old interceptor and add new one
-      dio.interceptors.remove(_cacheInterceptor);
-      _cacheInterceptor = DioCacheInterceptor(options: diskOptions);
-      dio.interceptors.add(_cacheInterceptor);
-    } catch (e) {
-      // Fallback to memory store - keep using the existing one
-      print('Failed to initialize disk cache: $e');
-    }
+    // MemCacheStore doesn't need initialization
+    // This method exists for compatibility with main.dart
   }
 
   Future<Response> get(
@@ -76,19 +62,26 @@ class DioClient {
     Map<String, dynamic>? params,
     Duration? cacheDuration,
     bool forceRefresh = false,
+    Options? options,
   }) async {
     try {
-      final options = (forceRefresh ? CacheOptions(
-        policy: CachePolicy.refresh,
+      final cacheOptions = CacheOptions(
+        store: _cacheStore,
+        policy: forceRefresh ? CachePolicy.refresh : CachePolicy.request,
         maxStale: cacheDuration ?? AppConfig.cacheDuration,
-      ) : CacheOptions(
-        policy: CachePolicy.request,
-        maxStale: cacheDuration ?? AppConfig.cacheDuration,
-      )).toOptions();
+      ).toOptions();
 
-      return await dio.get(path, queryParameters: params, options: options);
+      final mergedOptions = options?.copyWith(
+        extra: {...?options.extra, ...?cacheOptions.extra},
+      ) ?? cacheOptions;
+
+      return await dio.get(
+        path, 
+        queryParameters: params, 
+        options: mergedOptions,
+      );
     } on DioException catch (e) {
-      throw _convertToApiException(e);
+      throw ApiException.fromDioError(e);
     } catch (e) {
       throw ApiException(e.toString());
     }
@@ -98,15 +91,17 @@ class DioClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       return await dio.post(
         path,
         data: data,
         queryParameters: params,
+        options: options,
       );
     } on DioException catch (e) {
-      throw _convertToApiException(e);
+      throw ApiException.fromDioError(e);
     } catch (e) {
       throw ApiException(e.toString());
     }
@@ -116,15 +111,17 @@ class DioClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       return await dio.put(
         path,
         data: data,
         queryParameters: params,
+        options: options,
       );
     } on DioException catch (e) {
-      throw _convertToApiException(e);
+      throw ApiException.fromDioError(e);
     } catch (e) {
       throw ApiException(e.toString());
     }
@@ -133,23 +130,29 @@ class DioClient {
   Future<Response> delete(
     String path, {
     Map<String, dynamic>? params,
+    Options? options,
   }) async {
     try {
       return await dio.delete(
         path,
         queryParameters: params,
+        options: options,
       );
     } on DioException catch (e) {
-      throw _convertToApiException(e);
+      throw ApiException.fromDioError(e);
     } catch (e) {
       throw ApiException(e.toString());
     }
   }
 
-  // Helper method to convert DioException to ApiException
-  ApiException _convertToApiException(DioException error) {
-    return ApiException.fromDioError(error);
-  }
-
   Dio get client => dio;
+
+  /// Clear cache
+  Future<void> clearCache() async {
+    try {
+      await _cacheStore.clean();
+    } catch (e) {
+      print('Failed to clear cache: $e');
+    }
+  }
 }
