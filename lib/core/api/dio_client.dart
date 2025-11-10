@@ -1,24 +1,17 @@
-// lib/core/network/dio_client.dart
 import 'dart:io';
-
-import 'package:countries_app/core/api/api_exceptions.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache_lts/dio_http_cache_lts.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../config/app_config.dart';
+import 'api_exceptions.dart';
 
-/// A singleton Dio client configured for the app.
-/// - Uses AppConfig.apiBaseUrl
-/// - Adds a DioCacheInterceptor with a DiskCacheStore (initDiskCache must be called after app start)
-/// - No auth / JWT logic included (per project requirement)
 class DioClient {
   static final DioClient _instance = DioClient._internal();
-
   factory DioClient() => _instance;
 
   late final Dio dio;
-  late DioCacheInterceptor _cacheInterceptor;
+  late final DioCacheInterceptor _cacheInterceptor;
 
   DioClient._internal() {
     dio = Dio(BaseOptions(
@@ -27,59 +20,57 @@ class DioClient {
       receiveTimeout: const Duration(seconds: 15),
       sendTimeout: const Duration(seconds: 15),
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json',
       },
     ));
 
-    // Default: in-memory cache until disk store is initialized
-    final defaultOptions = CacheOptions(
-      store: MemCacheStore(),
-      policy: CachePolicy.requestFirst,
-      maxStale: AppConfig.cacheDuration,
-      priority: CachePriority.normal,
-      hitCacheOnErrorExcept: [401, 403],
+    // Initialize with memory cache first
+    _cacheInterceptor = DioCacheInterceptor(
+      options: CacheOptions(
+        store: MemCacheStore(),
+        policy: CachePolicy.request,
+        maxStale: AppConfig.cacheDuration,
+        priority: CachePriority.normal,
+        hitCacheOnErrorExcept: [401, 403, 404],
+      ),
     );
 
-    _cacheInterceptor = DioCacheInterceptor(options: defaultOptions);
     dio.interceptors.add(_cacheInterceptor);
 
-    // Basic error handling interceptor -> convert to ApiException
     dio.interceptors.add(InterceptorsWrapper(
-      onError: (DioError e, handler) {
-        handler.reject(ApiException.fromDioError(e));
+      onError: (DioException e, handler) {
+        handler.reject(_convertToApiException(e));
       },
     ));
   }
 
-  /// Call this once (after WidgetsFlutterBinding.ensureInitialized())
-  /// to set up a disk-backed cache store. It's async because of path_provider.
+  /// Initialize disk-backed cache
   Future<void> initDiskCache() async {
     try {
       final dir = await getTemporaryDirectory();
-      final cacheDirPath = '${dir.path}/dio_cache';
+      
+      // For dio_cache_interceptor 4.x, use the correct store
+      final diskStore = FileCacheStore(dir.path);
+
       final diskOptions = CacheOptions(
-        store: DiskCacheStore(cacheDirPath),
-        policy: CachePolicy.requestFirst,
+        store: diskStore,
+        policy: CachePolicy.request,
         maxStale: AppConfig.cacheDuration,
-        priority: CachePriority.normal,
-        hitCacheOnErrorExcept: [401, 403],
+        priority: CachePriority.high,
+        hitCacheOnErrorExcept: [401, 403, 404],
       );
 
-      // remove old cache interceptor and add new one with disk store
+      // Remove old interceptor and add new one
       dio.interceptors.remove(_cacheInterceptor);
       _cacheInterceptor = DioCacheInterceptor(options: diskOptions);
       dio.interceptors.add(_cacheInterceptor);
     } catch (e) {
-      // If disk cache init fails, we keep in-memory cache (no throw).
-      // Optionally log the error in debug mode.
-      // print('DioClient.initDiskCache error: $e');
+      // Fallback to memory store - keep using the existing one
+      print('Failed to initialize disk cache: $e');
     }
   }
 
-  /// Convenience GET that expects the caller to pass buildCacheOptions when needed.
-  /// Example:
-  ///   dioClient.get('all', params: {'fields': '...'}, cacheDuration: Duration(days:7));
   Future<Response> get(
     String path, {
     Map<String, dynamic>? params,
@@ -87,21 +78,78 @@ class DioClient {
     bool forceRefresh = false,
   }) async {
     try {
-      Options? options;
-      if (cacheDuration != null) {
-        options = buildCacheOptions(
-          cacheDuration,
-          forceRefresh: forceRefresh,
-        );
-      }
+      final options = (forceRefresh ? CacheOptions(
+        policy: CachePolicy.refresh,
+        maxStale: cacheDuration ?? AppConfig.cacheDuration,
+      ) : CacheOptions(
+        policy: CachePolicy.request,
+        maxStale: cacheDuration ?? AppConfig.cacheDuration,
+      )).toOptions();
+
       return await dio.get(path, queryParameters: params, options: options);
     } on DioException catch (e) {
-      throw ApiException.fromDioError(e);
+      throw _convertToApiException(e);
     } catch (e) {
       throw ApiException(e.toString());
     }
   }
 
-  /// Expose raw dio in case repository needs direct calls
+  Future<Response> post(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? params,
+  }) async {
+    try {
+      return await dio.post(
+        path,
+        data: data,
+        queryParameters: params,
+      );
+    } on DioException catch (e) {
+      throw _convertToApiException(e);
+    } catch (e) {
+      throw ApiException(e.toString());
+    }
+  }
+
+  Future<Response> put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? params,
+  }) async {
+    try {
+      return await dio.put(
+        path,
+        data: data,
+        queryParameters: params,
+      );
+    } on DioException catch (e) {
+      throw _convertToApiException(e);
+    } catch (e) {
+      throw ApiException(e.toString());
+    }
+  }
+
+  Future<Response> delete(
+    String path, {
+    Map<String, dynamic>? params,
+  }) async {
+    try {
+      return await dio.delete(
+        path,
+        queryParameters: params,
+      );
+    } on DioException catch (e) {
+      throw _convertToApiException(e);
+    } catch (e) {
+      throw ApiException(e.toString());
+    }
+  }
+
+  // Helper method to convert DioException to ApiException
+  ApiException _convertToApiException(DioException error) {
+    return ApiException.fromDioError(error);
+  }
+
   Dio get client => dio;
 }

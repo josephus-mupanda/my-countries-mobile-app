@@ -19,7 +19,7 @@ void main() async {
   await dotenv.load();
   await Preferences.init();
   await initServiceLocator();
-  await DioClient().initDiskCache();
+  await DioClient().initDiskCache(); // This is a no-op but kept for compatibility
 
   runApp(const MyApp());
 }
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             title: 'Countries Mobile App',
-            theme: state.isDarkTheme? AppTheme.darkTheme : AppTheme.lightTheme,
+            theme: state.isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme,
             debugShowCheckedModeBanner: false,
             initialRoute: AppRoutes.splash,
             onGenerateRoute: AppRouter.generateRoute,
