@@ -23,7 +23,6 @@ class CountriesBloc extends Bloc<CountriesEvent, CountriesState> {
         search: (e) async {
           emit(const CountriesState.loading());
           try {
-            // e.query is safe here
             final countries = await repository.searchCountries(e.query);
             emit(CountriesState.loaded(countries));
           } catch (e) {
