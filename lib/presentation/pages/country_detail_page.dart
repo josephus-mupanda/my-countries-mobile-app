@@ -59,16 +59,16 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      details.commonName ?? widget.name,
+                      details.commonName,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 10),
                     _buildDetailRow(
                       "Capital",
-                      details.capitalName ?? "Unknown",
+                      details.capitalName ,
                     ),
-                    _buildDetailRow("Region", details.region ?? "Unknown"),
-                    _buildDetailRow("Subregion", details.region ?? "Unknown"),
+                    _buildDetailRow("Region", details.region ),
+                    _buildDetailRow("Subregion", details.region ),
                     _buildDetailRow("Area", "${details.area} km²"),
                     _buildDetailRow(
                       "Population",
