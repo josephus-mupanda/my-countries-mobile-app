@@ -24,10 +24,10 @@ mixin _$CountryDetails {
   Map<String, dynamic> get name => throw _privateConstructorUsedError;
   Map<String, dynamic> get flags => throw _privateConstructorUsedError;
   int get population => throw _privateConstructorUsedError;
-  List<String>? get capital => throw _privateConstructorUsedError;
-  String get region => throw _privateConstructorUsedError;
-  String? get subregion => throw _privateConstructorUsedError;
   double get area => throw _privateConstructorUsedError;
+  String get region => throw _privateConstructorUsedError;
+  List<String>? get capital => throw _privateConstructorUsedError;
+  String? get subregion => throw _privateConstructorUsedError;
   List<String> get timezones => throw _privateConstructorUsedError;
 
   /// Serializes this CountryDetails to a JSON map.
@@ -51,10 +51,10 @@ abstract class $CountryDetailsCopyWith<$Res> {
     Map<String, dynamic> name,
     Map<String, dynamic> flags,
     int population,
-    List<String>? capital,
-    String region,
-    String? subregion,
     double area,
+    String region,
+    List<String>? capital,
+    String? subregion,
     List<String> timezones,
   });
 }
@@ -77,10 +77,10 @@ class _$CountryDetailsCopyWithImpl<$Res, $Val extends CountryDetails>
     Object? name = null,
     Object? flags = null,
     Object? population = null,
-    Object? capital = freezed,
-    Object? region = null,
-    Object? subregion = freezed,
     Object? area = null,
+    Object? region = null,
+    Object? capital = freezed,
+    Object? subregion = freezed,
     Object? timezones = null,
   }) {
     return _then(
@@ -97,22 +97,22 @@ class _$CountryDetailsCopyWithImpl<$Res, $Val extends CountryDetails>
                 ? _value.population
                 : population // ignore: cast_nullable_to_non_nullable
                       as int,
-            capital: freezed == capital
-                ? _value.capital
-                : capital // ignore: cast_nullable_to_non_nullable
-                      as List<String>?,
-            region: null == region
-                ? _value.region
-                : region // ignore: cast_nullable_to_non_nullable
-                      as String,
-            subregion: freezed == subregion
-                ? _value.subregion
-                : subregion // ignore: cast_nullable_to_non_nullable
-                      as String?,
             area: null == area
                 ? _value.area
                 : area // ignore: cast_nullable_to_non_nullable
                       as double,
+            region: null == region
+                ? _value.region
+                : region // ignore: cast_nullable_to_non_nullable
+                      as String,
+            capital: freezed == capital
+                ? _value.capital
+                : capital // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            subregion: freezed == subregion
+                ? _value.subregion
+                : subregion // ignore: cast_nullable_to_non_nullable
+                      as String?,
             timezones: null == timezones
                 ? _value.timezones
                 : timezones // ignore: cast_nullable_to_non_nullable
@@ -136,10 +136,10 @@ abstract class _$$CountryDetailsImplCopyWith<$Res>
     Map<String, dynamic> name,
     Map<String, dynamic> flags,
     int population,
-    List<String>? capital,
-    String region,
-    String? subregion,
     double area,
+    String region,
+    List<String>? capital,
+    String? subregion,
     List<String> timezones,
   });
 }
@@ -161,10 +161,10 @@ class __$$CountryDetailsImplCopyWithImpl<$Res>
     Object? name = null,
     Object? flags = null,
     Object? population = null,
-    Object? capital = freezed,
-    Object? region = null,
-    Object? subregion = freezed,
     Object? area = null,
+    Object? region = null,
+    Object? capital = freezed,
+    Object? subregion = freezed,
     Object? timezones = null,
   }) {
     return _then(
@@ -181,22 +181,22 @@ class __$$CountryDetailsImplCopyWithImpl<$Res>
             ? _value.population
             : population // ignore: cast_nullable_to_non_nullable
                   as int,
-        capital: freezed == capital
-            ? _value._capital
-            : capital // ignore: cast_nullable_to_non_nullable
-                  as List<String>?,
-        region: null == region
-            ? _value.region
-            : region // ignore: cast_nullable_to_non_nullable
-                  as String,
-        subregion: freezed == subregion
-            ? _value.subregion
-            : subregion // ignore: cast_nullable_to_non_nullable
-                  as String?,
         area: null == area
             ? _value.area
             : area // ignore: cast_nullable_to_non_nullable
                   as double,
+        region: null == region
+            ? _value.region
+            : region // ignore: cast_nullable_to_non_nullable
+                  as String,
+        capital: freezed == capital
+            ? _value._capital
+            : capital // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        subregion: freezed == subregion
+            ? _value.subregion
+            : subregion // ignore: cast_nullable_to_non_nullable
+                  as String?,
         timezones: null == timezones
             ? _value._timezones
             : timezones // ignore: cast_nullable_to_non_nullable
@@ -213,10 +213,10 @@ class _$CountryDetailsImpl implements _CountryDetails {
     required final Map<String, dynamic> name,
     required final Map<String, dynamic> flags,
     required this.population,
-    final List<String>? capital,
-    required this.region,
-    this.subregion,
     required this.area,
+    required this.region,
+    final List<String>? capital,
+    this.subregion,
     required final List<String> timezones,
   }) : _name = name,
        _flags = flags,
@@ -244,6 +244,10 @@ class _$CountryDetailsImpl implements _CountryDetails {
 
   @override
   final int population;
+  @override
+  final double area;
+  @override
+  final String region;
   final List<String>? _capital;
   @override
   List<String>? get capital {
@@ -255,11 +259,7 @@ class _$CountryDetailsImpl implements _CountryDetails {
   }
 
   @override
-  final String region;
-  @override
   final String? subregion;
-  @override
-  final double area;
   final List<String> _timezones;
   @override
   List<String> get timezones {
@@ -270,7 +270,7 @@ class _$CountryDetailsImpl implements _CountryDetails {
 
   @override
   String toString() {
-    return 'CountryDetails(name: $name, flags: $flags, population: $population, capital: $capital, region: $region, subregion: $subregion, area: $area, timezones: $timezones)';
+    return 'CountryDetails(name: $name, flags: $flags, population: $population, area: $area, region: $region, capital: $capital, subregion: $subregion, timezones: $timezones)';
   }
 
   @override
@@ -282,11 +282,11 @@ class _$CountryDetailsImpl implements _CountryDetails {
             const DeepCollectionEquality().equals(other._flags, _flags) &&
             (identical(other.population, population) ||
                 other.population == population) &&
-            const DeepCollectionEquality().equals(other._capital, _capital) &&
+            (identical(other.area, area) || other.area == area) &&
             (identical(other.region, region) || other.region == region) &&
+            const DeepCollectionEquality().equals(other._capital, _capital) &&
             (identical(other.subregion, subregion) ||
                 other.subregion == subregion) &&
-            (identical(other.area, area) || other.area == area) &&
             const DeepCollectionEquality().equals(
               other._timezones,
               _timezones,
@@ -300,10 +300,10 @@ class _$CountryDetailsImpl implements _CountryDetails {
     const DeepCollectionEquality().hash(_name),
     const DeepCollectionEquality().hash(_flags),
     population,
-    const DeepCollectionEquality().hash(_capital),
-    region,
-    subregion,
     area,
+    region,
+    const DeepCollectionEquality().hash(_capital),
+    subregion,
     const DeepCollectionEquality().hash(_timezones),
   );
 
@@ -329,10 +329,10 @@ abstract class _CountryDetails implements CountryDetails {
     required final Map<String, dynamic> name,
     required final Map<String, dynamic> flags,
     required final int population,
-    final List<String>? capital,
-    required final String region,
-    final String? subregion,
     required final double area,
+    required final String region,
+    final List<String>? capital,
+    final String? subregion,
     required final List<String> timezones,
   }) = _$CountryDetailsImpl;
 
@@ -346,13 +346,13 @@ abstract class _CountryDetails implements CountryDetails {
   @override
   int get population;
   @override
-  List<String>? get capital;
+  double get area;
   @override
   String get region;
   @override
-  String? get subregion;
+  List<String>? get capital;
   @override
-  double get area;
+  String? get subregion;
   @override
   List<String> get timezones;
 

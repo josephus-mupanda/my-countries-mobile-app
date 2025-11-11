@@ -38,7 +38,7 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
       body: BlocBuilder<CountryDetailsBloc, CountryDetailsState>(
         builder: (context, state) {
           return state.when(
-            loading: () => const ShimmerLoader(),
+            loading: () => const DetailShimmerLoader(),
             loaded: (details) {
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),

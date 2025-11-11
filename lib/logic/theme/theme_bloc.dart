@@ -1,7 +1,7 @@
 import 'package:countries_app/core/utils/preferences.dart';
-import 'package:countries_app/logic/theme/theme_state';
+import 'package:countries_app/logic/theme/theme_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'theme_event.dart';
+import 'package:countries_app/logic/theme/theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
