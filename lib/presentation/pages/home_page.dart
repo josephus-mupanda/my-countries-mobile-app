@@ -1,3 +1,4 @@
+import 'package:countries_app/core/router/routes.dart';
 import 'package:countries_app/data/models/country_summary.dart';
 import 'package:countries_app/logic/countries/countries_bloc.dart';
 import 'package:countries_app/logic/countries/countries_event.dart';
@@ -53,10 +54,14 @@ class _HomePageState extends State<HomePage> {
               prefixIcon: Icons.search,
               kController: _searchController,
               onChanged: (value) {
-                 if (value.isEmpty) {
-                  context.read<CountriesBloc>().add(const CountriesEvent.fetchAll());
+                if (value.isEmpty) {
+                  context.read<CountriesBloc>().add(
+                    const CountriesEvent.fetchAll(),
+                  );
                 } else {
-                  context.read<CountriesBloc>().add(CountriesEvent.search(value));
+                  context.read<CountriesBloc>().add(
+                    CountriesEvent.search(value),
+                  );
                 }
               },
             ),
@@ -68,11 +73,13 @@ class _HomePageState extends State<HomePage> {
                   loading: () => const ShimmerLoader(),
                   loaded: (countries) {
                     final filtered = countries
-                        .where((c) => c.commonName
-                            .toLowerCase()
-                            .contains(_searchController.text.toLowerCase()))
+                        .where(
+                          (c) => c.commonName.toLowerCase().contains(
+                            _searchController.text.toLowerCase(),
+                          ),
+                        )
                         .toList();
-                   
+
                     return ListView.builder(
                       itemCount: filtered.length,
                       itemBuilder: (context, index) {
@@ -80,7 +87,15 @@ class _HomePageState extends State<HomePage> {
                         return CountryListItem(
                           country: country,
                           onTap: () {
-                            // Navigate to detail
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.detail,
+                              arguments: {
+                                'cca2': country.cca2,
+                                'flagUrl': country.flagUrl,
+                                'name': country.commonName,
+                              },
+                            );
                           },
                         );
                       },
