@@ -1,4 +1,3 @@
-
 import 'package:countries_app/data/models/country_details.dart';
 import 'package:countries_app/logic/country_details/country_details_bloc.dart';
 import 'package:countries_app/logic/country_details/country_details_event.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class CountryDetailPage extends StatefulWidget {
-
   final String cca2;
   final String flagUrl;
   final String name;
@@ -25,21 +23,18 @@ class CountryDetailPage extends StatefulWidget {
 }
 
 class _CountryDetailPageState extends State<CountryDetailPage> {
-
-   @override
+  @override
   void initState() {
     super.initState();
-    context
-        .read<CountryDetailsBloc>()
-        .add(CountryDetailsEvent.fetchDetails(widget.cca2));
+    context.read<CountryDetailsBloc>().add(
+      CountryDetailsEvent.fetchDetails(widget.cca2),
+    );
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.name),
-      ),
+      appBar: AppBar(title: Text(widget.name)),
       body: BlocBuilder<CountryDetailsBloc, CountryDetailsState>(
         builder: (context, state) {
           return state.when(
@@ -68,11 +63,17 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 10),
-                    _buildDetailRow("Capital", details.capitalName ?? "Unknown"),
+                    _buildDetailRow(
+                      "Capital",
+                      details.capitalName ?? "Unknown",
+                    ),
                     _buildDetailRow("Region", details.region ?? "Unknown"),
                     _buildDetailRow("Subregion", details.region ?? "Unknown"),
                     _buildDetailRow("Area", "${details.area} km²"),
-                    _buildDetailRow("Population", details.population.toString()),
+                    _buildDetailRow(
+                      "Population",
+                      details.population.toString(),
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       "Timezones",
@@ -97,8 +98,8 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () => context.read<CountryDetailsBloc>().add(
-                          CountryDetailsEvent.fetchDetails(widget.cca2),
-                        ),
+                      CountryDetailsEvent.fetchDetails(widget.cca2),
+                    ),
                     child: const Text("Retry"),
                   ),
                 ],
@@ -110,18 +111,16 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
     );
   }
 
-
   Widget _buildDetailRow(String title, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w400)),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+          Text(value),
         ],
       ),
     );
   }
 }
-
