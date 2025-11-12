@@ -172,8 +172,6 @@ lib/
 | --------------------------------------- | -------------------------------------------- | ------------------------------------------------- | --------------------------------------- |
 | ![Home](assets/images/screens/home.png) | ![Details](assets/images/screens/detail.png) | ![Favorites](assets/images/screens/favorites.png) | ![Dark](assets/images/screens/dark.png) |
 
-*(Screenshots are placeholders — replace with emulator captures)*
-
 ---
 
 ## 🏁 Deliverables
@@ -182,7 +180,7 @@ lib/
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
 | 📱 GitHub Repository | [https://github.com/josephus-mupanda/countries_app](https://github.com/josephus-mupanda/countries_app)   |
 | 🌐 Web Demo          | [https://countries-web-app-livid.vercel.app](https://countries-web-app-livid.vercel.app)                 |
-| 📦 APK Download      | [A2SV - Countries Mobile App](https://drive.google.com/file/d/1OXysXUPLls7VEMTOFMjnvBMdohs6W6N0/view?usp=drive_link) |
+| 📦 APK Download      | [A2SV - Countries Mobile App](https://drive.google.com/file/d/1wv8bs5JzQAKSB5lA8m6nJLhIYJLwnBRV/view?usp=drive_link) |
 
 ---
 
