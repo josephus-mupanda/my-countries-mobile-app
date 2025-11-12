@@ -171,8 +171,9 @@ class _HomePageState extends State<HomePage> {
                         orElse: () => <FavoriteCountry>[],
                       );
 
-                  final isFavorite = (CountrySummary country) =>
-                      favorites.any((f) => f.cca2 == country.cca2);
+                  bool isFavorite(CountrySummary country) {
+                    return favorites.any((f) => f.cca2 == country.cca2);
+                  }
 
                   Widget content;
                   if (Responsive.isMobile(context)) {
@@ -238,7 +239,8 @@ class _HomePageState extends State<HomePage> {
                               },
                             );
                           },
-                          onFavoriteToggle: () {
+                          onFavoriteToggle: () async {
+
                             final favCountry = FavoriteCountry(
                               cca2: country.cca2,
                               name: country.commonName,
@@ -278,9 +280,9 @@ class _HomePageState extends State<HomePage> {
             if (favorites.isEmpty) {
               return _buildEmpty("No favorites yet.", _onRefreshFavorites);
             }
-
-            final isFavorite = (FavoriteCountry country) =>
-                favorites.any((f) => f.cca2 == country.cca2);
+            bool isFavorite(FavoriteCountry country) {
+              return favorites.any((f) => f.cca2 == country.cca2);
+            }
 
             Widget content = Responsive.isMobile(context)
                 ? ListView.builder(

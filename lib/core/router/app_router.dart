@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../presentation/pages/home_page.dart';
 import '../../presentation/pages/country_detail_page.dart';
-import '../../presentation/pages/favorites_page.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -38,14 +37,6 @@ class AppRouter {
               flagUrl: args['flagUrl'],
               name: args['name'],
             ),
-          ),
-        );
-
-      case AppRoutes.favorites:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => sl<FavoritesBloc>(),
-            child: const FavoritesPage(),
           ),
         );
 
