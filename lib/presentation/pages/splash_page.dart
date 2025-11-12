@@ -67,7 +67,7 @@ class MobileSplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(ImagePath.companyLogo),
+            CircleAvatar( backgroundColor: Colors.white, child: Image.asset(ImagePath.companyLogo)),
             const SizedBox(height: Constants.kDefaultPadding),
             SizedBox(
               width: 250,
@@ -167,7 +167,7 @@ class DesktopSplashScreen extends StatelessWidget {
             ),
             const SizedBox(height: Constants.kDefaultPadding / 2),
             Text(
-              "Organize your day, manage your tasks, and boost productivity effortlessly.",
+              "Explore countries, view their details, and mark your favorites easily.",
               style: TextStyle(
                 fontSize: 16,
                 color: Theme.of(context).colorScheme.onSurface.withValues(
