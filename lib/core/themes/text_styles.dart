@@ -27,5 +27,4 @@ class TextStyles {
     fontFamily: AppConfig.myFontFamily,
     color: Colors.black,
   );
-
 }

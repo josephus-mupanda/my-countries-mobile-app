@@ -24,7 +24,7 @@ class DioClient {
       },
     ));
 
-    // Add cache interceptor
+    // Cache interceptor
     dio.interceptors.add(DioCacheInterceptor(
       options: CacheOptions(
         store: _cacheStore,
@@ -34,7 +34,7 @@ class DioClient {
       ),
     ));
 
-    // Add error interceptor
+    // Error interceptor
     dio.interceptors.add(InterceptorsWrapper(
       onError: (DioException e, handler) {
         final apiException = ApiException.fromDioError(e);
@@ -51,10 +51,9 @@ class DioClient {
     ));
   }
 
-  /// Initialize cache (no-op for MemCacheStore, kept for compatibility)
+  // Initialize cache 
   Future<void> initDiskCache() async {
-    // MemCacheStore doesn't need initialization
-    // This method exists for compatibility with main.dart
+
   }
 
   Future<Response> get(
@@ -152,7 +151,7 @@ class DioClient {
     try {
       await _cacheStore.clean();
     } catch (e) {
-      print('Failed to clear cache: $e');
+      //print('Failed to clear cache: $e');
     }
   }
 }

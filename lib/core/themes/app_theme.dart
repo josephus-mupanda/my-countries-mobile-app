@@ -30,22 +30,22 @@ class AppTheme {
       textTheme: ButtonTextTheme.primary,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: ColorPalette.backgroundColor, // Same as body
-      foregroundColor: ColorPalette.onBackgroundColor, // Black text/icons
+      backgroundColor: ColorPalette.backgroundColor,
+      foregroundColor: ColorPalette.onBackgroundColor,
       elevation: 0,
       centerTitle: true,
       titleTextStyle: TextStyle(
-        color: ColorPalette.onBackgroundColor, // Black
+        color: ColorPalette.onBackgroundColor,
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
       iconTheme: IconThemeData(
-        color: ColorPalette.onBackgroundColor, // Black icons
+        color: ColorPalette.onBackgroundColor,
         size: 24.0,
       ),
     ),
     iconTheme: const IconThemeData(
-      color: ColorPalette.onBackgroundColor, // Black icons
+      color: ColorPalette.onBackgroundColor,
       size: 24.0,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -65,8 +65,8 @@ class AppTheme {
       onPrimary: ColorPalette.onPrimaryColor,
       secondary: ColorPalette.secondaryColor,
       onSecondary: ColorPalette.onSecondaryColor,
-      surface: ColorPalette.darkBackgroundColor, // Dark background
-      onSurface: ColorPalette.onDarkBackgroundColor, // White text
+      surface: ColorPalette.darkBackgroundColor,
+      onSurface: ColorPalette.onDarkBackgroundColor,
       error: ColorPalette.errorColor,
       onError: ColorPalette.onErrorColor,
       brightness: Brightness.dark,
@@ -74,16 +74,16 @@ class AppTheme {
     cardColor: const Color.fromRGBO(45, 47, 60, 1),
     textTheme: TextTheme(
       headlineLarge: TextStyles.headline1.copyWith(
-        color: ColorPalette.onDarkBackgroundColor, // White
+        color: ColorPalette.onDarkBackgroundColor,
       ),
       headlineMedium: TextStyles.headline2.copyWith(
-        color: ColorPalette.onDarkBackgroundColor, // White
+        color: ColorPalette.onDarkBackgroundColor,
       ),
       bodyLarge: TextStyles.bodyText1.copyWith(
-        color: ColorPalette.onDarkBackgroundColor, // White
+        color: ColorPalette.onDarkBackgroundColor,
       ),
       bodyMedium: TextStyles.bodyText2.copyWith(
-        color: ColorPalette.onDarkBackgroundColor, // White
+        color: ColorPalette.onDarkBackgroundColor,
       ),
     ),
     buttonTheme: const ButtonThemeData(
@@ -91,22 +91,22 @@ class AppTheme {
       textTheme: ButtonTextTheme.primary,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: ColorPalette.darkBackgroundColor, // Dark background
-      foregroundColor: ColorPalette.onDarkBackgroundColor, // White text/icons
+      backgroundColor: ColorPalette.darkBackgroundColor,
+      foregroundColor: ColorPalette.onDarkBackgroundColor,
       elevation: 0,
       centerTitle: true,
       titleTextStyle: TextStyle(
-        color: ColorPalette.onDarkBackgroundColor, // White
+        color: ColorPalette.onDarkBackgroundColor,
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
       iconTheme: IconThemeData(
-        color: ColorPalette.onDarkBackgroundColor, // White icons
+        color: ColorPalette.onDarkBackgroundColor,
         size: 24.0,
       ),
     ),
     iconTheme: const IconThemeData(
-      color: ColorPalette.onDarkBackgroundColor, // White icons
+      color: ColorPalette.onDarkBackgroundColor,
       size: 24.0,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(

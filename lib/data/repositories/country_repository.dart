@@ -1,4 +1,5 @@
 import 'package:countries_app/core/api/dio_client.dart';
+import 'package:countries_app/core/config/app_config.dart';
 
 import '../models/country_summary.dart';
 import '../models/country_details.dart';
@@ -11,7 +12,7 @@ class CountryRepository {
 
   Future<List<CountrySummary>> fetchAllCountries() async {
     final response = await dioClient.get(
-      'https://restcountries.com/v3.1/all?fields=name,flags,population,cca2',
+      '${AppConfig.apiBaseUrl}all?fields=name,flags,population,cca2',
     );
     return (response.data as List)
         .map((e) => CountrySummary.fromJson(e))
@@ -20,7 +21,7 @@ class CountryRepository {
 
   Future<List<CountrySummary>> searchCountries(String query) async {
     final response = await dioClient.get(
-      'https://restcountries.com/v3.1/name/$query?fields=name,flags,population,cca2',
+      '${AppConfig.apiBaseUrl}name/$query?fields=name,flags,population,cca2',
     );
     return (response.data as List)
         .map((e) => CountrySummary.fromJson(e))
@@ -29,7 +30,7 @@ class CountryRepository {
 
   Future<CountryDetails> getCountryDetails(String cca2) async {
     final response = await dioClient.get(
-      'https://restcountries.com/v3.1/alpha/$cca2?fields=name,flags,population,capital,region,subregion,area,timezones',
+      '${AppConfig.apiBaseUrl}alpha/$cca2?fields=name,flags,population,capital,region,subregion,area,timezones',
     );
 
     final data = response.data is List 

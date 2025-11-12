@@ -19,4 +19,5 @@ class CountrySummary with _$CountrySummary {
 extension CountrySummaryExt on CountrySummary {
   String get commonName => name['common'] ?? '';
   String get flagUrl => flags['png'] ?? '';
+
 }

@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
   String? _selectedSort;
-  int _selectedIndex = 0; // 0 = Home, 1 = Favorites
+  int _selectedIndex = 0; 
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: IconTheme.of(context).color,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

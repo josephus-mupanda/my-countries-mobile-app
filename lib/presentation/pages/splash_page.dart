@@ -77,7 +77,7 @@ class MobileSplashScreen extends StatelessWidget {
                   return LinearProgressIndicator(
                     value: controller.value,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor,
+                       IconTheme.of(context).color!,
                     ),
                     backgroundColor: Theme.of(context).cardColor,
                   );
@@ -120,7 +120,7 @@ class TabletSplashScreen extends StatelessWidget {
                   return LinearProgressIndicator(
                     value: controller.value,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor,
+                       IconTheme.of(context).color!,
                     ),
                     backgroundColor: Theme.of(context).cardColor,
                   );
@@ -184,7 +184,7 @@ class DesktopSplashScreen extends StatelessWidget {
                   return LinearProgressIndicator(
                     value: controller.value,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor,
+                       IconTheme.of(context).color!,
                     ),
                     backgroundColor: Theme.of(context).cardColor,
                   );

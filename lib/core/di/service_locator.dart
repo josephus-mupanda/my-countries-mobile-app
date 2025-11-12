@@ -11,30 +11,18 @@ final GetIt sl = GetIt.instance;
 
 
 Future<void> initServiceLocator() async {
-  // ----------------------------
+
   // Services
-  // ----------------------------
   sl.registerLazySingleton<DioClient>(() => DioClient());
 
-  // ----------------------------
+
   // Repositories
-  // ----------------------------
   sl.registerLazySingleton<CountryRepository>(() => CountryRepository(sl<DioClient>()));
   sl.registerLazySingleton<FavoritesRepository>(() => FavoritesRepository());
 
-  // ----------------------------
-  // Blocs / Cubits
-  // ----------------------------
-
-  // CountriesBloc depends on CountryRepository
+  // Blocs
   sl.registerFactory(() => CountriesBloc(sl<CountryRepository>()));
-
-  // CountryDetailsBloc depends on CountryRepository
   sl.registerFactory(() => CountryDetailsBloc(sl<CountryRepository>()));
-
-  // FavoritesBloc can optionally depend on FavoritesRepository
   sl.registerFactory(() => FavoritesBloc(sl<FavoritesRepository>()));
-
-  // ThemeBloc does not depend on any repository directly, uses Preferences
   sl.registerFactory(() => ThemeBloc());
 }
