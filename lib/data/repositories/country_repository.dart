@@ -31,7 +31,12 @@ class CountryRepository {
     final response = await dioClient.get(
       'https://restcountries.com/v3.1/alpha/$cca2?fields=name,flags,population,capital,region,subregion,area,timezones',
     );
-    return CountryDetails.fromJson((response.data as List).first);
+
+    final data = response.data is List 
+        ? (response.data as List).first 
+        : response.data;
+    
+    return CountryDetails.fromJson(data as Map<String, dynamic>);
   }
 }
 

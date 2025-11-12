@@ -33,7 +33,9 @@ class CountryListItem extends StatelessWidget {
       ),
       subtitle: Text(
         "Population: ${country.population.toStringAsFixed(0)}",
-        style: Theme.of(context).textTheme.bodySmall,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+        color: Theme.of(context).hintColor,
+      ),
       ),
       trailing: IconButton(
         icon: Icon(
