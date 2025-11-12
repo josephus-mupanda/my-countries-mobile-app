@@ -77,7 +77,8 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
   }) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: Constants.kMaxWidth),
         child: SingleChildScrollView(
@@ -111,7 +112,7 @@ class _CountryDetailPageState extends State<CountryDetailPage> {
               const SizedBox(height: Constants.kDefaultPadding),
               Text("Timezones", style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 4),
-
+      
               Wrap(
                 spacing: 8,
                 runSpacing: 6,
