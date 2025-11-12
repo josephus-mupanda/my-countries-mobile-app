@@ -1,13 +1,13 @@
+import 'package:countries_app/data/models/favorites_model.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/country_summary.dart';
 
-class CountryListItem extends StatelessWidget {
-  final CountrySummary country;
+class FavoriteListItem extends StatelessWidget {
+  final FavoriteCountry country;
   final VoidCallback? onTap;
   final bool isFavorite;
   final VoidCallback? onFavoriteToggle;
 
-  const CountryListItem({
+  const FavoriteListItem({
     super.key,
     required this.country,
     this.onTap,
@@ -28,11 +28,11 @@ class CountryListItem extends StatelessWidget {
         ),
       ),
       title: Text(
-        country.commonName,
+        country.name,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       subtitle: Text(
-        "Population: ${country.population.toStringAsFixed(0)}",
+        country.capital,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
         color: Theme.of(context).hintColor,
       ),
