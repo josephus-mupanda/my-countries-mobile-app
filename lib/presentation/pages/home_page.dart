@@ -158,11 +158,14 @@ class _HomePageState extends State<HomePage> {
                         },
                       );
                     } else {
+                      final int crossAxisCount = Responsive.isTablet(context) ? 2 : 3;
+
                       content = GridView.builder(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 1.3,
+                             SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: crossAxisCount,
+                              childAspectRatio: 4.0,
+      
                             ),
                         itemCount: filtered.length,
                         itemBuilder: (context, index) {

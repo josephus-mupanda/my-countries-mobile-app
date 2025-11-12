@@ -19,17 +19,22 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
 
   @override
-  void initState() async {
+  void initState()  {
     super.initState();
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
     )..forward();
 
-    await Future.delayed(const Duration(seconds: 1));
-    if (!mounted) return;
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+  _navigateToHome();
   }
+
+
+  void _navigateToHome() async {
+  await Future.delayed(const Duration(seconds: 1));
+  if (!mounted) return;
+  Navigator.pushReplacementNamed(context, AppRoutes.home);
+}
 
 
   @override
