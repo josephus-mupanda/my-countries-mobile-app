@@ -10,23 +10,12 @@ import 'widget/detail_page_test.dart' as detail_page_test;
 import 'widget/splash_page_test.dart' as splash_page_test;
 
 void main() {
-  // Run all test suites
-  helpers_test.main();
-  models_test.main();
-  bloc_test.main();
-  favorites_bloc_test.main();
-  home_page_test.main();
-  detail_page_test.main();
-  splash_page_test.main();
-  
-  // You can also run specific groups
-  group('Full Test Suite', () {
-    helpers_test.main();
-    models_test.main();
-    bloc_test.main();
-    favorites_bloc_test.main();
-    home_page_test.main();
-    detail_page_test.main();
-    splash_page_test.main();
-  });
+    // Run all test suites in groups
+  group('Helpers Tests', helpers_test.main);
+  group('Model Tests', models_test.main);
+  group('Bloc Tests', bloc_test.main);
+  group('Favorites Bloc Tests', favorites_bloc_test.main);
+  group('Home Page Widget Tests', home_page_test.main);
+  group('Detail Page Widget Tests', detail_page_test.main);
+  group('Splash Page Widget Tests', splash_page_test.main);
 }
