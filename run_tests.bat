@@ -1,6 +1,6 @@
 @echo off
 echo ================================================
-echo Running Flutter Tests for Countries App
+echo Running All Flutter Tests for Countries App
 echo ================================================
 echo.
 
@@ -20,61 +20,31 @@ if exist coverage (
     echo.
 )
 
-REM Run unit tests
-echo Running Unit Tests...
-echo ---------------------
-flutter test test/unit --coverage
-if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Unit tests failed!
-    pause
-    exit /b 1
-)
+echo Running ALL Tests (unit, widget, helpers)...
+echo -------------------------------------------
 echo.
 
-REM Run widget tests  
-echo Running Widget Tests...
-echo -----------------------
-flutter test test/widget --coverage
+REM Run ALL tests at once with coverage
+flutter test --coverage --test-randomize-ordering-seed=random
 if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Widget tests failed!
-    pause
-    exit /b 1
-)
-echo.
-
-REM Run helper tests
-echo Running Helper Tests...
-echo -----------------------
-flutter test test/helpers --coverage
-if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Helper tests failed!
-    pause
-    exit /b 1
-)
-echo.
-
-REM Generate coverage report
-echo Generating Coverage Report...
-echo -----------------------------
-if exist coverage\lcov.info (
-    echo Coverage data collected in: coverage\lcov.info
+    echo [ERROR] Tests failed!
     echo.
-    echo To generate HTML coverage report:
-    echo Option 1: Install lcov for Windows (see instructions below)
-    echo Option 2: Use online tools to convert lcov.info
-    echo Option 3: View raw coverage in coverage\lcov.info
-    echo.
-    echo Instructions for lcov on Windows:
-    echo 1. Install Chocolatey: https://chocolatey.org/install
-    echo 2. Run: choco install lcov
-    echo 3. Then run: genhtml coverage\lcov.info -o coverage\html
-) else (
-    echo [WARNING] No coverage data generated
+    pause
+    exit /b 1
 )
 
 echo.
 echo ================================================
 echo All tests completed successfully!
 echo ================================================
+echo.
+echo Coverage report generated at: coverage\lcov.info
+echo.
+echo To view line-by-line coverage, open coverage\lcov.info in a text editor.
+echo.
+echo For HTML coverage report on Windows:
+echo 1. Install lcov via Chocolatey: choco install lcov
+echo 2. Run: genhtml coverage\lcov.info -o coverage\html
+echo 3. Open coverage\html\index.html in your browser
 echo.
 pause
