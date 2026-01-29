@@ -40,6 +40,8 @@ dev_dependencies:
   json_serializable: ^6.9.0
   bloc_test: ^9.1.7
   mocktail: ^1.0.4
+  network_image_mock: ^2.0.0
+  flutter_svg_test: ^1.0.1
 
 flutter_icons:
   android: true
