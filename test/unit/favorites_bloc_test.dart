@@ -1,15 +1,14 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:countries_app/data/repositories/favorite_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:countries_app/data/models/favorites_model.dart';
 import 'package:countries_app/logic/favorites/favorites_bloc.dart';
 import 'package:countries_app/logic/favorites/favorites_event.dart';
 import 'package:countries_app/logic/favorites/favorites_state.dart';
-import 'package:mocktail/mocktail.dart';
 
-class MockFavoritesRepository extends Mock {
-  Future<List<FavoriteCountry>> getFavorites();
-  Future<void> saveFavorites(List<FavoriteCountry> favorites);
-}
+// Mock class implementing the repository interface
+class MockFavoritesRepository extends Mock implements FavoritesRepository {}
 
 void main() {
   late MockFavoritesRepository mockRepository;
