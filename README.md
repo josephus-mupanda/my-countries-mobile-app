@@ -17,8 +17,9 @@ This project was built as part of the **A2SV Technical Interview Challenge**, sh
 - [Folder Structure](#-folder-structure)
 - [Screenshots](#-screenshots)
 - [Deliverables](#-deliverables)
-- [Author](#-author)
 - [Vercel Deployment Setup](#-vercel-deployment-setup)
+- [Testing](#-testing)
+- [Author](#-author)
 
 ---
 
@@ -184,15 +185,6 @@ lib/
 
 ---
 
-## 👨‍💻 Author
-
-**Josephus Mupanda**  
-📍 Kigali, Rwanda 🇷🇼  
-📧 [josephusmupanda48@gmail.com](mailto:josephusmupanda48@gmail.com)  
-💼 [GitHub](https://github.com/josephus-mupanda)
-
----
-
 ## ▲ Vercel Deployment Setup
 
 To deploy the **web build** on **Vercel**:
@@ -327,3 +319,12 @@ After running tests with coverage (`flutter test --coverage`), you can:
 ✅ **Code Generation** - Freezed + json_serializable for models  
 ✅ **Sorting** - Sort by name or population (ascending/descending)  
 ✅ **Mobile/Tablet/Web Support** - Fully responsive design
+
+---
+
+## 👨‍💻 Author
+
+**Josephus Mupanda**  
+📍 Kigali, Rwanda 🇷🇼  
+📧 [josephusmupanda48@gmail.com](mailto:josephusmupanda48@gmail.com)  
+💼 [GitHub](https://github.com/josephus-mupanda)
