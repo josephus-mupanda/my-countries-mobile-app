@@ -242,15 +242,6 @@ test/
 └── run_tests.bat            # Windows batch script for running tests
 ```
 
-### ✅ Test Coverage
-
-| Component | Coverage | Status |
-|-----------|----------|--------|
-| **Models** | 95% | ✅ Excellent |
-| **BLoCs/Cubits** | 92% | ✅ Very Good |
-| **Widgets** | 85% | ✅ Good |
-| **Overall** | 90%+ | ✅ Excellent |
-
 ### 🚀 Running Tests
 
 #### On Windows:
