@@ -6,9 +6,9 @@ import 'package:countries_app/data/models/favorites_model.dart';
 void main() {
   group('CountrySummary Model Tests', () {
     test('should create CountrySummary from JSON', () {
-      final json = {
-        'name': {'common': 'Ethiopia'},
-        'flags': {'png': 'https://flagcdn.com/w320/et.png'},
+      final json = <String, dynamic>{
+        'name': <String, dynamic>{'common': 'Ethiopia'},
+        'flags': <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         'population': 123456789,
         'cca2': 'ET',
       };
@@ -22,9 +22,9 @@ void main() {
     });
 
     test('should handle missing common name gracefully', () {
-      final json = {
-        'name': {},
-        'flags': {'png': 'https://flagcdn.com/w320/et.png'},
+      final json = <String, dynamic>{
+        'name': <String, dynamic>{},
+        'flags': <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         'population': 123456789,
         'cca2': 'ET',
       };
@@ -35,9 +35,9 @@ void main() {
     });
 
     test('should handle missing flag URL gracefully', () {
-      final json = {
-        'name': {'common': 'Ethiopia'},
-        'flags': {},
+      final json = <String, dynamic>{
+        'name': <String, dynamic>{'common': 'Ethiopia'},
+        'flags': <String, dynamic>{},
         'population': 123456789,
         'cca2': 'ET',
       };
@@ -49,8 +49,8 @@ void main() {
 
     test('should serialize to JSON correctly', () {
       final country = CountrySummary(
-        name: {'common': 'Ethiopia'},
-        flags: {'png': 'https://flagcdn.com/w320/et.png'},
+        name: <String, dynamic>{'common': 'Ethiopia'},
+        flags: <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         population: 123456789,
         cca2: 'ET',
       );
@@ -66,9 +66,9 @@ void main() {
 
   group('CountryDetails Model Tests', () {
     test('should create CountryDetails from JSON', () {
-      final json = {
-        'name': {'common': 'Ethiopia'},
-        'flags': {'png': 'https://flagcdn.com/w320/et.png'},
+      final json = <String, dynamic>{
+        'name': <String, dynamic>{'common': 'Ethiopia'},
+        'flags': <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         'population': 123456789,
         'area': 1104300.0,
         'region': 'Africa',
@@ -90,9 +90,9 @@ void main() {
     });
 
     test('should handle empty capital array', () {
-      final json = {
-        'name': {'common': 'Ethiopia'},
-        'flags': {'png': 'https://flagcdn.com/w320/et.png'},
+      final json = <String, dynamic>{
+        'name': <String, dynamic>{'common': 'Ethiopia'},
+        'flags': <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         'population': 123456789,
         'area': 1104300.0,
         'region': 'Africa',
@@ -107,8 +107,8 @@ void main() {
 
     test('should serialize to JSON correctly', () {
       final details = CountryDetails(
-        name: {'common': 'Ethiopia'},
-        flags: {'png': 'https://flagcdn.com/w320/et.png'},
+        name: <String, dynamic>{'common': 'Ethiopia'},
+        flags: <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         population: 123456789,
         area: 1104300.0,
         region: 'Africa',
@@ -132,7 +132,7 @@ void main() {
 
   group('FavoriteCountry Model Tests', () {
     test('should create FavoriteCountry from JSON', () {
-      final json = {
+      final json = <String, dynamic>{
         'cca2': 'ET',
         'name': 'Ethiopia',
         'capital': 'Addis Ababa',
@@ -165,8 +165,8 @@ void main() {
 
     test('should create FavoriteCountry from CountrySummary', () {
       final country = CountrySummary(
-        name: {'common': 'Ethiopia'},
-        flags: {'png': 'https://flagcdn.com/w320/et.png'},
+        name: <String, dynamic>{'common': 'Ethiopia'},
+        flags: <String, dynamic>{'png': 'https://flagcdn.com/w320/et.png'},
         population: 123456789,
         cca2: 'ET',
       );

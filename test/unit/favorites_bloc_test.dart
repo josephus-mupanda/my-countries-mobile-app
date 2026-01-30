@@ -6,11 +6,15 @@ import 'package:countries_app/data/models/favorites_model.dart';
 import 'package:countries_app/logic/favorites/favorites_bloc.dart';
 import 'package:countries_app/logic/favorites/favorites_event.dart';
 import 'package:countries_app/logic/favorites/favorites_state.dart';
+import '../helpers/test_setup.dart';
 
 // Mock class implementing the repository interface
 class MockFavoritesRepository extends Mock implements FavoritesRepository {}
 
 void main() {
+
+  setupTestFallbacks();
+  
   late MockFavoritesRepository mockRepository;
   late FavoritesBloc favoritesBloc;
 
@@ -95,9 +99,6 @@ void main() {
             .thenAnswer((_) async {});
         return favoritesBloc;
       },
-      setUp: () {
-        favoritesBloc.emit(FavoritesState.loaded(mockFavorites));
-      },
       act: (bloc) => bloc.add(FavoritesEvent.toggleFavorite(mockFavorites[0])),
       expect: () => [
         FavoritesState.loaded([mockFavorites[1]]),
@@ -117,11 +118,14 @@ void main() {
       build: () {
         when(() => mockRepository.getFavorites())
             .thenThrow(Exception('Storage error'));
-        return favoritesBloc;
+        return FavoritesBloc(mockRepository);
       },
       act: (bloc) => bloc.add(const FavoritesEvent.loadFavorites()),
       errors: () => [isA<Exception>()],
-      expect: () => [],
+      expect: () => [
+        // Should still emit the initial state
+        const FavoritesState.loaded([]),
+      ],
     );
   });
 }

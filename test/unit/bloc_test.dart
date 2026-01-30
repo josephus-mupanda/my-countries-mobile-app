@@ -10,11 +10,14 @@ import 'package:countries_app/logic/country_details/country_details_bloc.dart';
 import 'package:countries_app/logic/country_details/country_details_event.dart';
 import 'package:countries_app/logic/country_details/country_details_state.dart';
 import 'package:countries_app/data/repositories/country_repository.dart';
+import '../helpers/test_setup.dart';
 
 // Mock class implementing the repository interface
 class MockCountryRepository extends Mock implements CountryRepository {}
 
 void main() {
+  setupTestFallbacks(); 
+  
   late MockCountryRepository mockRepository;
 
   setUp(() {
