@@ -23,9 +23,9 @@ void main() {
   // Run all test suites in groups
   group('Helpers Tests', helpers_test.main);
   group('Model Tests', models_test.main);
-  // group('Bloc Tests', bloc_test.main);
-  // group('Favorites Bloc Tests', favorites_bloc_test.main);
-  // group('Home Page Widget Tests', home_page_test.main);
+  group('Bloc Tests', bloc_test.main);
+  group('Favorites Bloc Tests', favorites_bloc_test.main);
+  group('Home Page Widget Tests', home_page_test.main);
   group('Detail Page Widget Tests', detail_page_test.main);
   group('Splash Page Widget Tests', splash_page_test.main);
 }
