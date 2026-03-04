@@ -69,8 +69,8 @@ It’s fully responsive across **mobile, tablet, and web**, with smooth dark/lig
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/josephus-mupanda/countries_app.git
-cd countries_app
+git https://github.com/josephus-mupanda/my-countries-mobile-app.git
+cd my-countries-mobile-app
 ```
 
 ### 2️⃣ Install Dependencies
@@ -179,7 +179,7 @@ lib/
 
 | Deliverable          | Link                                                                                                     |
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
-| 📱 GitHub Repository | [https://github.com/josephus-mupanda/countries_app](https://github.com/josephus-mupanda/countries_app)   |
+| 📱 GitHub Repository | [https://github.com/josephus-mupanda/my-countries-mobile-app](https://github.com/josephus-mupanda/my-countries-mobile-app)   |
 | 🌐 Web Demo          | [https://countries-web-app-livid.vercel.app](https://countries-web-app-livid.vercel.app)                 |
 | 📦 APK Download      | [A2SV - Countries Mobile App](https://drive.google.com/file/d/1wv8bs5JzQAKSB5lA8m6nJLhIYJLwnBRV/view?usp=drive_link) |
 
